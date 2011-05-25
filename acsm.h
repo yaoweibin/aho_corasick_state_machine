@@ -1,16 +1,20 @@
 #ifndef _ACSM_H_
 #define _ACSM_H_
 
+#include <sys/types.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define ALPHABET_SIZE    (256)     
+#define ASCIITABLE_SIZE    (256)     
+
 #define PATTERN_MAXLEN   (1024) 
 
 #define ACSM_FAIL_STATE  (-1)     
 
 
 typedef struct acsm_pattern_s {
-    unsigned char *string;
+    u_char        *string;
     size_t         len;
 
     struct acsm_pattern_s *next;
@@ -18,7 +22,7 @@ typedef struct acsm_pattern_s {
 
 
 typedef struct {
-    int next_state[ALPHABET_SIZE];
+    int next_state[ASCIITABLE_SIZE];
     int fail_state;
 
     /* output */
@@ -31,10 +35,23 @@ typedef struct {
     unsigned num_state;
 
     acsm_pattern_t    *patterns;
-    acsm_state_node_t *state_trie;
+    acsm_state_node_t *state_table;
 
     unsigned no_case;
 } acsm_context_t;
 
+
+#define acsm_tolower(c)      (u_char) ((c >= 'A' && c <= 'Z') ? (c | 0x20) : c)
+
+#define acsm_strlen(s)       strlen((const char *) s)
+
+
+#define NO_CASE 0x01
+
+acsm_context_t *acsm_alloc(int flag);
+void acsm_free(acsm_context_t *ctx);
+
+int acsm_add_pattern(acsm_context_t *ctx, u_char *string); 
+int acsm_complie(acsm_context_t *ctx);
 
 #endif /* _ACSM_H_ */
