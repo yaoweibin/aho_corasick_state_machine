@@ -69,7 +69,7 @@ acsm_context_t *acsm_alloc(int flag);
 void acsm_free(acsm_context_t *ctx);
 
 int acsm_add_pattern(acsm_context_t *ctx, u_char *string, size_t len); 
-int acsm_complie(acsm_context_t *ctx);
+int acsm_compile(acsm_context_t *ctx);
 int acsm_search(acsm_context_t *ctx, u_char *string, size_t len);
 
 #endif /* _ACSM_H_ */

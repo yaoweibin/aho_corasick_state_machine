@@ -302,7 +302,7 @@ int acsm_add_pattern(acsm_context_t *ctx, u_char *string, size_t len)
 }
 
 
-int acsm_complie(acsm_context_t *ctx)
+int acsm_compile(acsm_context_t *ctx)
 {
     int state, new_state, r, s;
     u_char ch;
@@ -444,6 +444,7 @@ int acsm_search(acsm_context_t *ctx, u_char *text, size_t len)
     return 0;
 }
 
+#if 1
 
 char *test_patterns[] = {"hers", "his", "she", "he", NULL};
 char *text = 
@@ -474,7 +475,7 @@ int main()
 
     debug_printf("after add_pattern: max_state=%d\n", ctx->max_state);
     
-    if (acsm_complie(ctx) != 0) {
+    if (acsm_compile(ctx) != 0) {
         fprintf(stderr, "acsm_compile() error.\n");
         return -1;
     }
@@ -490,3 +491,5 @@ int main()
 
     return 0;
 }
+
+#endif
