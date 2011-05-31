@@ -266,13 +266,11 @@ void acsm_free(acsm_context_t *ctx)
 }
 
 
-int acsm_add_pattern(acsm_context_t *ctx, u_char *string) 
+int acsm_add_pattern(acsm_context_t *ctx, u_char *string, size_t len) 
 {
     u_char ch;
-    int i, len;
+    size_t i;
     acsm_pattern_t *p;
-
-    len = acsm_strlen(string);
 
     p = malloc(sizeof(acsm_pattern_t));
     if (p == NULL) {
@@ -419,14 +417,15 @@ int acsm_complie(acsm_context_t *ctx)
 }
 
 
-int acsm_search(acsm_context_t *ctx, u_char *text)
+int acsm_search(acsm_context_t *ctx, u_char *text, size_t len)
 {
     int state = 0;
-    u_char *p, ch;
+    u_char *p, *last, ch;
 
     p = text;
+    last = text + len;
 
-    while (*p) {
+    while (p < last) {
         ch = ctx->no_case ? acsm_tolower((*p)) : (*p);
 
         while (ctx->state_table[state].next_state[ch] == ACSM_FAIL_STATE) {
@@ -469,7 +468,7 @@ int main()
     input = (u_char**) test_patterns;
    
     while(*input) {
-        acsm_add_pattern(ctx, *input);
+        acsm_add_pattern(ctx, *input, acsm_strlen(*input));
         input++;
     }
 
@@ -480,7 +479,7 @@ int main()
         return -1;
     }
 
-    if (acsm_search(ctx, (u_char *)text)) {
+    if (acsm_search(ctx, (u_char *)text, acsm_strlen(text))) {
         printf("match!\n");
     }
     else {
