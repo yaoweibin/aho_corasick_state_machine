@@ -11,7 +11,7 @@
 *
 * See wiki: http://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_string_matching_algorithm
 *
-* This program is an implement of the paper[1].
+* This program is an implementation of the paper[1].
 *
 * [1]  Margaret J. Corasick (June 1975). "Efficient string matching: An aid to bibliographic 
 * search". Communications of the ACM 18 (6): 333–340. doi:10.1145/360825.360855 
