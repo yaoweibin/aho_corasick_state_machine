@@ -294,7 +294,7 @@ int acsm_add_pattern(acsm_context_t *ctx, u_char *string, size_t len)
     p->next = ctx->patterns;
     ctx->patterns = p;
 
-    debug_printf("add_pattern: \"%s\", len=%d\n", string, p->len);
+    debug_printf("add_pattern: \"%.*s\"\n", p->len, string);
 
     ctx->max_state += len;
 
@@ -460,7 +460,7 @@ int main()
     u_char         **input;
     acsm_context_t  *ctx;
 
-    ctx = acsm_alloc(1);
+    ctx = acsm_alloc(NO_CASE);
     if (ctx == NULL) {
         fprintf(stderr, "acsm_alloc() error.\n");
         return -1;
@@ -469,7 +469,12 @@ int main()
     input = (u_char**) test_patterns;
    
     while(*input) {
-        acsm_add_pattern(ctx, *input, acsm_strlen(*input));
+        if (acsm_add_pattern(ctx, *input, acsm_strlen(*input)) != 0) {
+            fprintf(stderr, "acsm_add_pattern() with pattern \"%s\" error.\n", 
+                    *input);
+            return -1;
+        }
+
         input++;
     }
 

@@ -1,4 +1,8 @@
-Multi-Pattern Search Engine
+= Multi-Pattern Search Engine =
+
+== DOCUMENT ==
+
+See the main function in acsm.c as an example.
 
 ==COPYRIGHT & LICENSE==
 
