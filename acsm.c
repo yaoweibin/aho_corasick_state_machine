@@ -405,7 +405,7 @@ int acsm_compile(acsm_context_t *ctx)
             }
             else {
                 state = ctx->state_table[r].fail_state;
-                ctx->state_table[r].next_state[j] = ctx->state_table[state].next_state[i];
+                ctx->state_table[r].next_state[j] = ctx->state_table[state].next_state[j];
             }
         }
     }
